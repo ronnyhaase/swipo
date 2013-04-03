@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<link rel="stylesheet" href="swipo.css">
+
+<style>
+
+#toolbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 32px;
+
+color: #FFF; background-color: #111;
+}
+
+#swipo-wrapper {
+	position: absolute;
+	top: 32px;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.swipo-pull { color: #FFF; background-color: #666; }
+.swipo-menu { color: #FFF; background-color: #333; }
+.swipo-more { color: #333; background-color: #FFF; }
+.swipo-main { color: #FFF; background-color: #8ba987; }
+
+</style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+	<div id="toolbar">
+		<span><button onclick="$('#swipo').toggleClass('menu');">Menu</button></span>
+		<span style="float:right;"><button onclick="$('#swipo').toggleClass('more');">Friends</button></span>
+	</div>
+
+	<div id="swipo-wrapper">
+		<div id="swipo" class="swipo">
+			<div class="swipo-pull">Zum Aktualisieren herunterziehen</div>
+			<div class="swipo-menu"><button onclick="$('#swipo').toggleClass('popup');">Config</button></div>
+			<div class="swipo-main">Hallo, Welt</div>
+			<div class="swipo-more">$MORE</div>
+		</div>
+	</div>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="swipo.js"></script>
+
+</body>
+
+</html>
+
