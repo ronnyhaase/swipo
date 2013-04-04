@@ -2,7 +2,9 @@
 , .swipo-menu
 , .swipo-main
 , .swipo-more
-, .swipo-popup {
+, .swipo-navbar
+, .swipo-popup 
+, .swipo-pull {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -22,16 +24,22 @@
 	-webkit-perspective: 800px;
 }
 
-.swipo.menu > .swipo-menu { width: 20%; }
-.swipo.menu > .swipo-main { left: 20%; }
+.swipo-main
+, .swipo-navbar {
+	z-index: 2;
+	left: 0;
+	right: 0;
 
-.swipo.more > .swipo-more { width: 20%; }
-.swipo.more > .swipo-main { right: 20%; }
+	-webkit-transition: left 300ms ease-in, right 300ms ease-in, -webkit-transform 300ms ease-out;
+}
 
-.swipo.popup > .swipo-main
-, .swipo.popup > .swipo-menu
-, .swipo.popup > .swipo-more {
-	-webkit-transform: rotateX(5deg);
+.swipo-main {
+	top: 44px;
+	bottom: 0;
+}
+
+.swipo-navbar {
+	height: 44px;
 }
 
 .swipo-pull {
@@ -59,18 +67,9 @@
 	height: 100%;
 }
 
-.swipo-main {
-	z-index: 2;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-
-	-webkit-transition: left 300ms ease-in, right 300ms ease-in, -webkit-transform 300ms ease-out;
-}
-
 .swipo-popup {
 	z-index: 3;
+	overflow: hidden;
 	top: 100%;
 	left: 1%;
 	right: 1%;
@@ -81,5 +80,65 @@
 
 .swipo-popup.active {
 	top: 1%;
+	overflow: scroll;
+}
+
+/*
+** Panel behaviour
+*/
+
+.swipo.menu > .swipo-menu { overflow-y: scroll; width: 20%; }
+.swipo.menu > .swipo-main { left: 20%; }
+.swipo.menu > .swipo-navbar { left: 20%; }
+
+.swipo.more > .swipo-more { overflow-y: scroll; width: 20%; }
+.swipo.more > .swipo-main { right: 20%; }
+.swipo.more > .swipo-navbar { right: 20%; }
+
+.swipo.popup > .swipo-main
+, .swipo.popup > .swipo-menu
+, .swipo.popup > .swipo-more 
+, .swipo.popup > .swipo-navbar {
+	-webkit-transform: rotateX(5deg);
+}
+
+/************
+**
+** RESPONSIVE
+**
+*************/
+
+/* IE10 Metro responsive
+** Required for Windows 8 Metro split-screen snapping with IE10
+** Source: http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
+*/
+@-ms-viewport{
+	width: device-width;
+}
+
+/*
+** Phone
+*/
+@media (max-width: 767px) {
+	.swipo.menu > .swipo-menu { width: 100%; }
+	.swipo.menu > .swipo-main { left: 95%; overflow: hidden; white-space: nowrap; }
+	.swipo.menu > .swipo-navbar { left: 95%; overflow: hidden; white-space:nowrap; }
+
+	.swipo.more > .swipo-more { width: 100%; }
+	.swipo.more > .swipo-main { right: 95%; overflow: hidden; white-space: nowrap; }
+	.swipo.more > .swipo-navbar { right: 95%; overflow: hidden; white-space: nowrap; }
+
+	.swipo-popup.active {
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+}
+
+/*
+** Tablet & small desktop
+*/
+
+@media (min-width: 768px) and (max-width: 979px) {
 }
 
