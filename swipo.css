@@ -1,4 +1,8 @@
-.swipo, .swipo-menu, .swipo-main, .swipo-more {
+.swipo
+, .swipo-menu
+, .swipo-main
+, .swipo-more
+, .swipo-popup {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -63,5 +67,19 @@
 	right: 0;
 
 	-webkit-transition: left 300ms ease-in, right 300ms ease-in, -webkit-transform 300ms ease-out;
+}
+
+.swipo-popup {
+	z-index: 3;
+	top: 100%;
+	left: 1%;
+	right: 1%;
+	bottom: 0;
+
+	-webkit-transition: top 300ms ease-in;
+}
+
+.swipo-popup.active {
+	top: 1%;
 }
 

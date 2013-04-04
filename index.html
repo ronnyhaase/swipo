@@ -26,10 +26,12 @@ color: #FFF; background-color: #111;
 	right: 0;
 }
 
+.swipo { background-color: #000; }
 .swipo-pull { color: #FFF; background-color: #666; }
 .swipo-menu { color: #FFF; background-color: #333; }
 .swipo-more { color: #333; background-color: #FFF; }
 .swipo-main { color: #FFF; background-color: #8ba987; }
+.swipo-popup { color: #333; background-color: #EEE; }
 
 </style>
 
@@ -46,9 +48,15 @@ color: #FFF; background-color: #111;
 	<div id="swipo-wrapper">
 		<div id="swipo" class="swipo">
 			<div class="swipo-pull">Zum Aktualisieren herunterziehen</div>
-			<div class="swipo-menu"><button onclick="$('#swipo').toggleClass('popup');">Config</button></div>
+			<div class="swipo-menu"><button onclick="$('#swipo').toggleClass('popup'); $('#settings').toggleClass('active');">Config</button></div>
 			<div class="swipo-main">Hallo, Welt</div>
 			<div class="swipo-more">$MORE</div>
+
+			<div id="settings" class="swipo-popup">
+				<div style="text-align: right;"><button onclick="$('#settings').toggleClass('active'); $('#swipo').toggleClass('popup')">Close</button></div>
+				<h1>Settings</h1>
+				Make your settings here...
+			</div>
 		</div>
 	</div>
 </div>
