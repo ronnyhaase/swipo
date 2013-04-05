@@ -1,0 +1,76 @@
+[class*="swipo"] {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.swipo {
+	-webkit-perspective: 800px;
+}
+
+.swipo-panel {
+}
+
+.swipo-navbar {
+	height: 44px;
+}
+
+.swipo-panel.navbar { padding-top: 44px; }
+
+.swipo-tabbar {
+	top: auto;
+	height: 44px;
+}
+
+.swipo-panel.tabbar { padding-bottom: 44px; }
+
+.swipo-pull { bottom: auto; height: auto; }
+
+.swipo-paneldeck {}
+
+.swipo-paneldeck > .deck-left { right: 100%; }
+.swipo-paneldeck.left > .deck-left { right: 80%; }
+.swipo-paneldeck.left > .deck-center { left: 20%; }
+
+.swipo-paneldeck > .deck-right { left: 100%; }
+.swipo-paneldeck.right > .deck-right { left: 80%; }
+.swipo-paneldeck.right > .deck-center { right: 20%; }
+
+/************
+**
+** RESPONSIVE
+**
+*************/
+
+/* IE10 Metro responsive
+** Required for Windows 8 Metro split-screen snapping with IE10
+** Source: http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
+*/
+@-ms-viewport{
+	width: device-width;
+}
+
+/*
+** Phone
+*/
+@media (max-width: 767px) {
+
+}
+
+/*
+** Tablet & small desktop
+*/
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
