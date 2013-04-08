@@ -25,7 +25,7 @@ $('[data-toggle="swipo-deck"]').each(function() {
 	var $this = $(this)
 		, $sdc = $this.find('[data-toggle="swipo-deck-center"]')
 
-	Hammer(this).on('swipeleft', function() {
+	/*Hammer(this).on('swipeleft', function() {
 		if ( $this.hasClass('left') )
 			$this.removeClass('left')
 		else if ( !$(this).hasClass('right') )
@@ -36,24 +36,24 @@ $('[data-toggle="swipo-deck"]').each(function() {
 			$this.removeClass('right')
 		else if ( !$this.hasClass('left') )
 			$this.addClass('left')
-	})
+	})*/
 
 	$this.on('mousedown', function(ev) {
-		var $this = $(this)
+		var $this = $(ev.target)
 
 		isDragging = true
 		dragInfo.startX = ev.pageX
 		dragInfo.startY = ev.pageY
-		console.log( $this.parentsUntil('.swipo').parent().addClass('no-trans') )
+		$this.parentsUntil('.swipo').parent().addClass('no-transitions')
 	})
 
 	$this.on('mouseup', function(ev) {
-		var $this = $(this)
+		var $this = $(ev.target)
 
 		isDragging = false
 		dragInfo.startX = null
 		dragInfo.startY = null
-		console.log( $this.parentsUntil('.swipo').parent().removeClass('no-trans') )
+		$this.parentsUntil('.swipo').parent().removeClass('no-transitions')
 
 		$sdc.css('left','')
 	})
