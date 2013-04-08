@@ -1,60 +1,74 @@
 <!DOCTYPE html>
 
-<html>
-
 <head>
+	<link rel="stylesheet" href="swipo.css">
+	<link rel="stylesheet" href="swipo-theme-default.css">
 
-<link rel="stylesheet" href="swipo.css">
-
-<style>
-
-#swipo-wrapper {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
+	<style>
+.clearfix {
+	*zoom: 1;
 }
 
-.swipo { background-color: #000; }
-.swipo-pull { color: #FFF; background-color: #666; }
-.swipo-menu { color: #FFF; background-color: #333; }
-.swipo-more { color: #333; background-color: #FFF; }
-.swipo-main { color: #FFF; background-color: #8ba987; }
-.swipo-navbar { color: #FFF; background-color: #111; }
-.swipo-popup { color: #333; background-color: #EEE; }
+.clearfix:before
+, .clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
 
-</style>
+.clearfix:after {
+	clear: both;
+}
 
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
+
+#main {
+	box-shadow: 0 0 10px #000;
+}
+
+#menu, #friends {
+	background-color: #445;
+}
+
+#friends {
+}
+	</style>
 </head>
 
 <body>
 
-<div id="wrapper">
-	<div id="swipo-wrapper">
-		<div id="swipo" class="swipo">
-			<div class="swipo-navbar">
-				<span><button onclick="$('#swipo').toggleClass('menu');">Menu</button></span>
-				<span style="float:right;"><button onclick="$('#swipo').toggleClass('more');">Friends</button></span>
-			</div>
-			<div class="swipo-pull">Zum Aktualisieren herunterziehen</div>
-			<div class="swipo-menu"><button onclick="$('#swipo').toggleClass('popup'); $('#settings').toggleClass('active');">Config</button></div>
-			<div class="swipo-main">Hallo, Welt</div>
-			<div class="swipo-more">$MORE</div>
+<div id="swipo-wrapper" class="swipo">
+	<div id="maindeck" class="swipo-panel swipo-paneldeck" data-toggle="swipo-deck">
+		<div id="menu" class="swipo-panel deck-left" data-toggle="swipo-deck-left">
+		</div>
+	
+		<div id="friends" class="swipo-panel deck-right" data-toggle="swipo-deck-right">
+		</div>
 
-			<div id="settings" class="swipo-popup">
-				<div style="text-align: right;"><button onclick="$('#settings').toggleClass('active'); $('#swipo').toggleClass('popup')">Close</button></div>
-				<h1>Settings</h1>
-				Make your settings here...
+		<div id="main" class="swipo-panel has-navbar has-tabbar deck-center" data-toggle="swipo-deck-center">
+			<div class="swipo-pull">Drag to sync</div>
+			<div class="swipo-panel swipo-navbar">
+				<button class="pull-left clearfix" onclick="$('#maindeck').toggleClass('left');">Menu</button>
+				Title
+				<button class="pull-right clearfix" onclick="$('#maindeck').toggleClass('right');">Friends</button>
 			</div>
+	
+			<div class="swipo-panel swipo-tabbar"></div>
 		</div>
 	</div>
 </div>
 
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/hammer.js/1.0.3/hammer.min.js"></script>
 <script src="swipo.js"></script>
 
-</body>
+<body>
 
 </html>
 

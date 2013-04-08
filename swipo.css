@@ -1,106 +1,72 @@
-.swipo
-, .swipo-menu
-, .swipo-main
-, .swipo-more
-, .swipo-navbar
-, .swipo-popup 
-, .swipo-pull {
+[class*="swipo"] {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 
 	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	margin: 0;
 	padding: 0;
 	border: 0;
+
+	cursor: default;
 }
 
 .swipo {
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-
 	-webkit-perspective: 800px;
 }
 
-.swipo-main
-, .swipo-navbar {
-	z-index: 2;
-	left: 0;
-	right: 0;
-
-	-webkit-transition: left 300ms ease-in, right 300ms ease-in, -webkit-transform 300ms ease-out;
-}
-
-.swipo-main {
-	top: 44px;
-	bottom: 0;
-}
-
-.swipo-navbar {
-	height: 44px;
-}
-
-.swipo-pull {
-	z-index: 0;
-}
-
-.swipo-menu, .swipo-more {
-	z-index: 1;
-	overflow: hidden;
-
-	-webkit-transition: width 300ms ease-in, -webkit-transform 300ms ease-out;
-}
-
-.swipo-menu {
-	top: 0;
-	left: 0;
-	width: 0;
-	height: 100%;
-}
-
-.swipo-more {
-	top: 0;
-	right: 0;
-	width: 0;
-	height: 100%;
-}
-
-.swipo-popup {
-	z-index: 3;
-	overflow: hidden;
-	top: 100%;
-	left: 1%;
-	right: 1%;
-	bottom: 0;
-
-	-webkit-transition: top 300ms ease-in;
-}
-
-.swipo-popup.active {
-	top: 1%;
-	overflow: scroll;
+.swipo-panel {
 }
 
 /*
-** Panel behaviour
+** NavBar
+*/
+.swipo-panel.swipo-navbar {
+	height: 44px;
+
+	text-align: center;
+}
+
+.swipo-panel.has-navbar {
+	padding-top: 44px;
+}
+
+/*
+** TabBar
 */
 
-.swipo.menu > .swipo-menu { overflow-y: scroll; width: 20%; }
-.swipo.menu > .swipo-main { left: 20%; }
-.swipo.menu > .swipo-navbar { left: 20%; }
-
-.swipo.more > .swipo-more { overflow-y: scroll; width: 20%; }
-.swipo.more > .swipo-main { right: 20%; }
-.swipo.more > .swipo-navbar { right: 20%; }
-
-.swipo.popup > .swipo-main
-, .swipo.popup > .swipo-menu
-, .swipo.popup > .swipo-more 
-, .swipo.popup > .swipo-navbar {
-	-webkit-transform: rotateX(5deg);
+.swipo-tabbar {
+	top: auto;
+	height: 44px;
 }
+
+.swipo-panel.has-tabbar { padding-bottom: 44px; }
+
+.swipo-pull { bottom: auto; height: auto; }
+
+/*
+** PanelDeck
+*/
+
+.swipo-paneldeck {}
+
+.swipo-paneldeck > .deck-left
+, .swipo-paneldeck > .deck-center
+, .swipo-paneldeck > .deck-right {
+	-webkit-transition: left ease 300ms, right ease 300ms;
+}
+
+.swipo-paneldeck > .deck-left { right: 100%; }
+.swipo-paneldeck.left > .deck-left { right: 80%; }
+.swipo-paneldeck.left > .deck-center { left: 20%; }
+
+.swipo-paneldeck > .deck-right { left: 100%; }
+.swipo-paneldeck.right > .deck-right { left: 80%; }
+.swipo-paneldeck.right > .deck-center { right: 20%; }
 
 /************
 **
@@ -120,19 +86,7 @@
 ** Phone
 */
 @media (max-width: 767px) {
-	.swipo.menu > .swipo-menu { width: 100%; }
-	.swipo.menu > .swipo-main { left: 95%; overflow: hidden; white-space: nowrap; }
-	.swipo.menu > .swipo-navbar { left: 95%; overflow: hidden; white-space:nowrap; }
 
-	.swipo.more > .swipo-more { width: 100%; }
-	.swipo.more > .swipo-main { right: 95%; overflow: hidden; white-space: nowrap; }
-	.swipo.more > .swipo-navbar { right: 95%; overflow: hidden; white-space: nowrap; }
-
-	.swipo-popup.active {
-		top: 0;
-		left: 0;
-		right: 0;
-	}
 }
 
 /*
@@ -140,5 +94,6 @@
 */
 
 @media (min-width: 768px) and (max-width: 979px) {
+
 }
 
