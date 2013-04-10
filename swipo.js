@@ -5,13 +5,59 @@ if ( !($) || !('on' in $()) ) {
 	return
 }
 
-if ( !(Hammer) ) {
+/*if ( !(Hammer) ) {
 	console.log('ERROR: Swipo requires Hammer.js >= v1.0')
 	return
+}*/
+
+"use strict"; // jshint ;_;
+
+/* SwipoDeck Class Definition
+ * ========================== */
+var SwipoDeck = function(element, options) {
+	this.options = $.extend({}, $.fn.swipodeck.defaults, options)
+	this.$element = $(element)
 }
 
-"use strict";
+SwipoDeck.prototype.showDeck = function(){}
+SwipoDeck.prototype.hideDeck = function(){}
+SwipoDeck.prototype.toggleDeck = function(){}
+SwipoDeck.prototype.destroy = function(){}
 
+/* SwipoDeck Plugin Definition
+ * =========================== */
+
+var old = $.fn.swipodeck
+
+$.fn.swipodeck = function(option) {
+	return this.each(function () {
+		var $this = $(this)
+		, data = $this.data('swipodeck')
+		, options = typeof option == 'object' && option
+
+		if (!data) $this.data('swipodeck', (data = new SwipoDeck(this, options)))
+		if (typeof option == 'string') data[option]()
+	})
+}
+
+$.fn.swipodeck.Constructor = SwipoDeck
+
+$.fn.swipodeck.defaults = {
+	emulateTouch: true
+}
+
+/* SwipoDeck No Conflict
+ * ===================== */
+
+ $.fn.swipodeck.noConflict = function () {
+ 	$.fn.swipodeck = old
+	return this
+ }
+
+/* SwipoDeck Data-API
+ * ================== */
+
+/*** PLAYGROUND **/
 var
 	isDragging = false
 	, dragInfo = {
@@ -57,10 +103,10 @@ $('[data-toggle="swipo-deck"]').each(function() {
 		dragInfo.dir = (ev.pageX <= $this.width() / 2 ) ? 'left' : 'right'
 		// Calculate min & max positions
 		dragInfo.minX = 0
-		dragInfo.mouseMinX = dragInfo.minX + ev.pageX
+		dragInfo.mouseMinX = (dragInfo.dir === 'left') ? dragInfo.minX + ev.pageX : dragInfo.minX - ev.pageX
 		dragInfo.maxX = $this.width() * 0.2
-		dragInfo.mouseMaxX = dragInfo.maxX + ev.pageX
-		// Turn of transitions to avoid delay while dragging
+		dragInfo.mouseMaxX = (dragInfo.dir === 'left') ? dragInfo.maxX + ev.pageX : dragInfo.maxX - ev.pageX
+		// Turn off transitions to avoid delay while dragging
 		$this.parentsUntil('.swipo').parent().addClass('no-transitions')
 	})
 
@@ -91,9 +137,10 @@ $('[data-toggle="swipo-deck"]').each(function() {
 		
 		if ( dragInfo.dir === 'left' && ev.pageX >= dragInfo.mouseMinX && ev.pageX <= dragInfo.mouseMaxX /*(left >= dragInfo.minX) && left <= dragInfo.maxX*/ ) {
 			$sdc.css('left', (ev.pageX - dragInfo.startX) + 'px')
-		} else if (dragInfo.dir === 'right')
+		} else if ( dragInfo.dir === 'right' && ev.pageX >= dragInfo.mouseMinX  && ev.pageX <= dragInfo.mouseMaxX) {
+			console.log(dragInfo.mouseMinX + ':' + dragInfo.mouseMaxX)
 			$sdc.css('right', -(ev.pageX - dragInfo.startX) + 'px')
-			
+		}	
 	})
 })
 
