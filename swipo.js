@@ -135,10 +135,12 @@ $('[data-toggle="swipo-deck"]').each(function() {
 		if ( $sdc.length === 0 )
 			return
 		
+
+		console.log(dragInfo.mouseMinX + ':' + dragInfo.mouseMaxX)
+
 		if ( dragInfo.dir === 'left' && ev.pageX >= dragInfo.mouseMinX && ev.pageX <= dragInfo.mouseMaxX /*(left >= dragInfo.minX) && left <= dragInfo.maxX*/ ) {
 			$sdc.css('left', (ev.pageX - dragInfo.startX) + 'px')
 		} else if ( dragInfo.dir === 'right' && ev.pageX >= dragInfo.mouseMinX  && ev.pageX <= dragInfo.mouseMaxX) {
-			console.log(dragInfo.mouseMinX + ':' + dragInfo.mouseMaxX)
 			$sdc.css('right', -(ev.pageX - dragInfo.startX) + 'px')
 		}	
 	})
