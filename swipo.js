@@ -63,8 +63,6 @@ var
 	, dragInfo = {
 		startX: null
 		, startY: null
-		, maxX: null
-		, minX: null
 		, dir: null
 	}
 
