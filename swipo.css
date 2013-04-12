@@ -24,12 +24,7 @@
 	-webkit-transition: none !important;
 }
 
-.swipo-panel {
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
+.swipo-panel {}
 
 /*
 ** NavBar
@@ -77,15 +72,14 @@
 .swipo-paneldeck > .deck-left
 , .swipo-paneldeck > .deck-center
 , .swipo-paneldeck > .deck-right {
-	-webkit-transition: left ease 300ms, width ease 300ms;
+	-webkit-transition: left ease 300ms, right ease 300ms, width ease 300ms;
 }
 
 .swipo-paneldeck > .deck-center {
 	top: 0;
-	left: auto;
+	left: 0;
 	bottom: 0;
-	right: auto;
-	width: 100%;
+	right: 0;
 }
 
 .swipo-paneldeck > .deck-left {
@@ -96,7 +90,7 @@
 	height: 100%;
 }
 .swipo-paneldeck.left > .deck-left { width: 20%; }
-.swipo-paneldeck.left > .deck-center { left: 20%; width: 80% }
+.swipo-paneldeck.left > .deck-center { left: 20%; }
 
 .swipo-paneldeck > .deck-right {
 	top: 0;
@@ -107,9 +101,7 @@
 	height: 100%;
 }
 .swipo-paneldeck.right > .deck-right { width: 20%; }
-.swipo-paneldeck.right > .deck-center { width: 80%; }
-
-.swipo-paneldeck.left.right > .deck-center { width: 60%; }
+.swipo-paneldeck.right > .deck-center { right: 20%; }
 
 /************
 **
