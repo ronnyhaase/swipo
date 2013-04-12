@@ -5,52 +5,51 @@
 
 	position: absolute;
 	top: 0;
+	bottom: auto;
 	left: 0;
-	bottom: 0;
-	right: 0;
+	right: auto;
+	width: 100%;
+	height: 100%;
 	margin: 0;
 	padding: 0;
 	border: 0;
+}
 
-	cursor: default;
+/* Helper class - Turns off transitions for a Swipo element and all it's child Swipo elements */
+[class*="swipo"].no-transitions,
+[class*="swipo"].no-transitions * {
+	-webkit-transition: none !important;
 }
 
 .swipo {
 	-webkit-perspective: 800px;
 }
 
-.swipo.no-transitions * {
-	-webkit-transition: none !important;
-}
-
-.swipo-panel {
-}
+.swipo-panel {}
 
 /*
-** NavBar
+** NavBar & TabBar
 */
-.swipo-navbar {
-	height: 44px;
+.swipo-panel > .swipo-navbar
+, .swipo-panel > .swipo-tabbar {
+	height: 44px; /* Feel free to change this to your needs */
+}
 
+.swipo-panel> .swipo-navbar {
 	text-align: center;
 }
+.swipo-panel.has-navbar { padding-top: 44px; /* Has to be NavBar height! */ }
 
-.swipo-panel.has-navbar {
-	padding-top: 44px;
+.swipo-panel > .swipo-tabbar {
+	top: auto;
+	bottom: 0;
 }
+.swipo-panel.has-tabbar { padding-bottom: 44px; /* Has to be TabBar height! */ }
 
 /*
-** TabBar
+** Pull
 */
-
-.swipo-tabbar {
-	top: auto;
-	height: 44px;
-}
-
-.swipo-panel.has-tabbar { padding-bottom: 44px; }
-
-.swipo-pull { bottom: auto; height: auto; }
+.swipo-panel > .swipo-pull { display: none; }
 
 /*
 ** PanelDeck
@@ -61,15 +60,30 @@
 .swipo-paneldeck > .deck-left
 , .swipo-paneldeck > .deck-center
 , .swipo-paneldeck > .deck-right {
-	-webkit-transition: left ease 300ms, right ease 300ms;
+	-webkit-transition: left ease 300ms, right ease 300ms, width ease 300ms;
 }
 
-.swipo-paneldeck > .deck-left { right: 100%; }
-.swipo-paneldeck.left > .deck-left { right: 80%; }
+.swipo-paneldeck > .deck-center {
+	bottom: 0;
+	right: 0;
+	width: auto;
+	height: auto;
+}
+
+.swipo-paneldeck > .deck-left {
+	width: 0;
+	max-width: 20%;
+}
+.swipo-paneldeck.left > .deck-left { width: 20%; }
 .swipo-paneldeck.left > .deck-center { left: 20%; }
 
-.swipo-paneldeck > .deck-right { left: 100%; }
-.swipo-paneldeck.right > .deck-right { left: 80%; }
+.swipo-paneldeck > .deck-right {
+	left: auto;
+	right: 0;
+	width: 0;
+	max-width: 20%;
+}
+.swipo-paneldeck.right > .deck-right { width: 20%; }
 .swipo-paneldeck.right > .deck-center { right: 20%; }
 
 /************
