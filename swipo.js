@@ -91,58 +91,48 @@ $('[data-toggle="swipo-deck"]').each(function() {
 	})*/
 
 	$this.on('mousedown', function(ev) {
-		var $this = $(ev.target)
+		var $sender = $(ev.target)
 
-		if ( !($this.is('[data-toggle="swipo-deck-center"]')) )
+		if ( !($sender.is('[data-toggle="swipo-deck-center"]')) )
 			return
 
 		isDragging = true
 		dragInfo.startX = ev.pageX
 		dragInfo.startY = ev.pageY
 		// If drag start X-pos is on the left half, drag the left panel, else the right one
-		dragInfo.dir = (ev.pageX <= $this.width() / 2 ) ? 'left' : 'right'
-		// Calculate min & max positions
-		dragInfo.minX = 0
-		dragInfo.mouseMinX = (dragInfo.dir === 'left') ? dragInfo.minX + ev.pageX : dragInfo.minX - ev.pageX
-		dragInfo.maxX = $this.width() * 0.2
-		dragInfo.mouseMaxX = (dragInfo.dir === 'left') ? dragInfo.maxX + ev.pageX : dragInfo.maxX - ev.pageX
+		dragInfo.dir = (ev.pageX <= $sender.width() / 2 ) ? 'left' : 'right'
 		// Turn off transitions to avoid delay while dragging
-		$this.parentsUntil('.swipo').parent().addClass('no-transitions')
+		$sender.parentsUntil('.swipo').parent().addClass('no-transitions')
 	})
 
 	$this.on('mouseup', function(ev) {
-		var $this = $(ev.target)
+		var $sender = $(ev.target)
 
-		if ( !($this.is('[data-toggle="swipo-deck-center"]')) )
+		if ( !($sender.is('[data-toggle="swipo-deck-center"]')) )
 			return
 	
 		isDragging = false
-		$this.parentsUntil('.swipo').parent().removeClass('no-transitions')
+		$sender.parentsUntil('.swipo').parent().removeClass('no-transitions')
 
 		$sdc.css({'left':'','right':''})
-		$sdl.css({'left':'','right':''})
-		$sdr.css({'left':'','right':''})
+		$sdl.css({'width':''})
+		$sdr.css({'width':''})
 	})
 
 	$this.on('mousemove', function(ev) {
-		var $this = $(this)
-			, left = $sdc.css('left').slice(0,-2)
-			, right = $sdc.css('right').slice(0,-2)
-		
 		if ( !isDragging )
 			return
 
 		if ( $sdc.length === 0 )
 			return
-		
 
-		console.log(dragInfo.mouseMinX + ':' + dragInfo.mouseMaxX)
-
-		if ( dragInfo.dir === 'left' && ev.pageX >= dragInfo.mouseMinX && ev.pageX <= dragInfo.mouseMaxX /*(left >= dragInfo.minX) && left <= dragInfo.maxX*/ ) {
-			$sdc.css('left', (ev.pageX - dragInfo.startX) + 'px')
-		} else if ( dragInfo.dir === 'right' && ev.pageX >= dragInfo.mouseMinX  && ev.pageX <= dragInfo.mouseMaxX) {
-			$sdc.css('right', -(ev.pageX - dragInfo.startX) + 'px')
-		}	
+		if ( dragInfo.dir === 'left' ) {
+			$sdl.css('width', (ev.pageX - dragInfo.startX) + 'px')
+			$sdc.css('left', $sdl.width() + 'px' )
+		} else if ( dragInfo.dir === 'right' ) {
+			$sdr.css('width', (dragInfo.startX - ev.pageX) + 'px')
+			$sdc.css('right', $sdr.width() + 'px' )
+		}
 	})
 })
 
