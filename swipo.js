@@ -98,7 +98,6 @@ $('[data-toggle="swipo-deck"]').each(function() {
 		dragInfo.startX = ev.pageX
 		dragInfo.startY = ev.pageY
 		// If drag start X-pos is on the left half, drag the left panel, else the right one
-		dragInfo.dir = (ev.pageX <= $sender.width() / 2 ) ? 'left' : 'right'
 		// Turn off transitions to avoid delay while dragging
 		$sender.parentsUntil('.swipo').parent().addClass('no-transitions')
 	})
@@ -110,6 +109,7 @@ $('[data-toggle="swipo-deck"]').each(function() {
 			return
 	
 		isDragging = false
+		dragInfo.dir = null
 		$sender.parentsUntil('.swipo').parent().removeClass('no-transitions')
 
 		$sdc.css({'left':'','right':''})
@@ -126,10 +126,16 @@ $('[data-toggle="swipo-deck"]').each(function() {
 
 		if ( dragInfo.dir === 'left' ) {
 			$sdl.css('width', (ev.pageX - dragInfo.startX) + 'px')
-			$sdc.css('left', $sdl.width() + 'px' )
+			$sdc.css('left', $sdl.width() + 'px')
 		} else if ( dragInfo.dir === 'right' ) {
 			$sdr.css('width', (dragInfo.startX - ev.pageX) + 'px')
-			$sdc.css('right', $sdr.width() + 'px' )
+			$sdc.css('right', $sdr.width() + 'px')
+		} else {
+			if (ev.pageX > dragInfo.startX)
+				dragInfo.dir = 'left'
+			else if (ev.pageX < dragInfo.startX)
+				dragInfo.dir = 'right'
+			// else still no dir
 		}
 	})
 })
