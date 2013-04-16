@@ -99,7 +99,7 @@ $('[data-toggle="swipo-deck"]').each(function() {
 		dragInfo.startY = ev.pageY
 		// If drag start X-pos is on the left half, drag the left panel, else the right one
 		// Turn off transitions to avoid delay while dragging
-		$sender.parentsUntil('.swipo').parent().addClass('no-transitions')
+		$sender.parent().addClass('no-transitions')
 	})
 
 	$this.on('mouseup', function(ev) {
@@ -110,7 +110,7 @@ $('[data-toggle="swipo-deck"]').each(function() {
 	
 		isDragging = false
 		dragInfo.dir = null
-		$sender.parentsUntil('.swipo').parent().removeClass('no-transitions')
+		$sender.parent().removeClass('no-transitions')
 
 		$sdc.css({'left':'','right':''})
 		$sdl.css({'width':''})
