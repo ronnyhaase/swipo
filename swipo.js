@@ -15,8 +15,65 @@ if ( !($) || !('on' in $()) ) {
 /* SwipoDeck Class Definition
  * ========================== */
 var SwipoDeck = function(element, options) {
+	var $el = $(element)
+		, $dl = $el.find('> [data-toggle="swipo-deck-left"]')
+		, $dr = $el.find('> [data-toggle="swipo-deck-right"]')
+		, $dc = $el.find('> [data-toggle="swipo-deck-center"]')
+
+		, dragInfo = {
+			startX: null // pointer x-pos
+			, startY: null // pointer y-pos
+			, dir: null // drag direction
+		}
+
 	this.options = $.extend({}, $.fn.swipodeck.defaults, options)
-	this.$element = $(element)
+	this.$element = $el
+	this.$deckLeft = $dl
+	this.$deckRight = $dr
+	this.$deckCenter = $dc
+
+	function _onPointerDown(ev) {
+		// Add event listener for pointer move (so we don't listen to this all the time)
+		$el.on('mousemove.swipo.swipodeck', _onPointerMove)
+
+		dragInfo.startX = ev.pageX
+		dragInfo.startY = ev.pageY
+
+		// Turn off transitions
+		$el.addClass('no-transitions')
+	}
+
+	function _onPointerUp(ev) {
+		// Remove pointer move listener
+		$el.off('mousemove.swipodeck')
+
+		dragInfo.dir = null
+		$el.removeClass('no-transitions')
+
+		$dc.css({'left':'','right':''})
+		$dl.css({'width':''})
+		$dr.css({'width':''})
+	}
+
+	function _onPointerMove(ev) {
+		if ( dragInfo.dir === 'left' ) {
+			$dl.css('width', (ev.pageX - dragInfo.startX) + 'px')
+			$dc.css('left', $dl.width() + 'px')
+		} else if ( dragInfo.dir === 'right' ) {
+			$dr.css('width', (dragInfo.startX - ev.pageX) + 'px')
+			$dc.css('right', $dr.width() + 'px')
+		} else {
+			if (ev.pageX > dragInfo.startX)
+				dragInfo.dir = 'left'
+			else if (ev.pageX < dragInfo.startX)
+				dragInfo.dir = 'right'
+			// else still no dir
+		}
+	}
+
+
+	$dc.on('mousedown.swipo.swipodeck', _onPointerDown)
+	$dc.on('mouseup.swipo.swipodeck', _onPointerUp)
 }
 
 SwipoDeck.prototype.showDeck = function(){}
@@ -33,10 +90,10 @@ $.fn.swipodeck = function(option) {
 	return this.each(function () {
 		var $this = $(this)
 		, data = $this.data('swipodeck')
-		, options = typeof option == 'object' && option
+		, options = typeof option === 'object' && option
 
 		if (!data) $this.data('swipodeck', (data = new SwipoDeck(this, options)))
-		if (typeof option == 'string') data[option]()
+		if (typeof option === 'string') data[option]()
 	})
 }
 
@@ -57,88 +114,8 @@ $.fn.swipodeck.defaults = {
 /* SwipoDeck Data-API
  * ================== */
 
-/*** PLAYGROUND **/
-var
-	isDragging = false
-	, dragInfo = {
-		startX: null
-		, startY: null
-		, dir: null
-	}
-
-//
-// Data API
-//
-$('[data-toggle="swipo-deck"]').each(function() {
-	var $this = $(this)
-		, $sdc = $this.find('[data-toggle="swipo-deck-center"]')
-		, $sdl = $this.find('[data-toggle="swipo-deck-left"]')
-		, $sdr = $this.find('[data-toggle="swipo-deck-right"]')
-
-	/*Hammer(this).on('swipeleft', function() {
-		if ( $this.hasClass('left') )
-			$this.removeClass('left')
-		else if ( !$(this).hasClass('right') )
-			$this.addClass('right')
-	})
-	.on('swiperight', function() {
-		if ( $this.hasClass('right') )
-			$this.removeClass('right')
-		else if ( !$this.hasClass('left') )
-			$this.addClass('left')
-	})*/
-
-	$this.on('mousedown', function(ev) {
-		var $sender = $(ev.target)
-
-		if ( !($sender.is('[data-toggle="swipo-deck-center"]')) )
-			return
-
-		isDragging = true
-		dragInfo.startX = ev.pageX
-		dragInfo.startY = ev.pageY
-		// If drag start X-pos is on the left half, drag the left panel, else the right one
-		// Turn off transitions to avoid delay while dragging
-		$sender.parent().addClass('no-transitions')
-	})
-
-	$this.on('mouseup', function(ev) {
-		var $sender = $(ev.target)
-
-		if ( !($sender.is('[data-toggle="swipo-deck-center"]')) )
-			return
-	
-		isDragging = false
-		dragInfo.dir = null
-		$sender.parent().removeClass('no-transitions')
-
-		$sdc.css({'left':'','right':''})
-		$sdl.css({'width':''})
-		$sdr.css({'width':''})
-	})
-
-	$this.on('mousemove', function(ev) {
-		if ( !isDragging )
-			return
-
-		if ( $sdc.length === 0 )
-			return
-
-		if ( dragInfo.dir === 'left' ) {
-			$sdl.css('width', (ev.pageX - dragInfo.startX) + 'px')
-			$sdc.css('left', $sdl.width() + 'px')
-		} else if ( dragInfo.dir === 'right' ) {
-			$sdr.css('width', (dragInfo.startX - ev.pageX) + 'px')
-			$sdc.css('right', $sdr.width() + 'px')
-		} else {
-			if (ev.pageX > dragInfo.startX)
-				dragInfo.dir = 'left'
-			else if (ev.pageX < dragInfo.startX)
-				dragInfo.dir = 'right'
-			// else still no dir
-		}
-	})
-})
+// TODO: Non correct implementation of Data API!
+$('[data-toggle="swipo-deck"]').swipodeck()
 
 }(window.jQuery, window.Hammer);
 
