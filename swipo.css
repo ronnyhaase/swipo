@@ -72,7 +72,7 @@
 
 .swipo-paneldeck > .deck-left {
 	width: 0;
-	max-width: 20%;
+	max-width: 20%; /* (Only px / % !) Feel free to change this to your needs */
 }
 .swipo-paneldeck.left > .deck-left { width: 20%; }
 .swipo-paneldeck.left > .deck-center { left: 20%; }
@@ -81,7 +81,7 @@
 	left: auto;
 	right: 0;
 	width: 0;
-	max-width: 20%;
+	max-width: 20%; /* (Only px / % !) Feel free to change this to your needs */
 }
 .swipo-paneldeck.right > .deck-right { width: 20%; }
 .swipo-paneldeck.right > .deck-center { right: 20%; }

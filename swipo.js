@@ -38,18 +38,28 @@ var SwipoDeck = function(element, options) {
 
 		dragInfo.startX = ev.pageX
 		dragInfo.startY = ev.pageY
+		dragInfo.startWidthLeft = $dl.width()
+		dragInfo.startWidthRight = $dr.width()
 
 		// Turn off transitions
 		$el.addClass('no-transitions')
 	}
 
 	function _onPointerUp(ev) {
+		/*var dltw = calcToggleWidth()
+			, drtw = calcToggleWidth()
+
+		if ( dragInfo.dir === 'left' )
+		else if ( dragInfo.dir === 'right' )*/
+
 		// Remove pointer move listener
 		$el.off('mousemove.swipodeck')
-
+		// Reset dragInfo
 		dragInfo.dir = null
+		// Turn on transitions
 		$el.removeClass('no-transitions')
 
+		// Remove CSS changes
 		$dc.css({'left':'','right':''})
 		$dl.css({'width':''})
 		$dr.css({'width':''})
@@ -57,10 +67,10 @@ var SwipoDeck = function(element, options) {
 
 	function _onPointerMove(ev) {
 		if ( dragInfo.dir === 'left' ) {
-			$dl.css('width', (ev.pageX - dragInfo.startX) + 'px')
-			$dc.css('left', $dl.width() + 'px')
+			$dl.css('width', (ev.pageX - dragInfo.startX + dragInfo.startWidthLeft ) + 'px')
+			$dc.css('left', $dl.width()  + 'px')
 		} else if ( dragInfo.dir === 'right' ) {
-			$dr.css('width', (dragInfo.startX - ev.pageX) + 'px')
+			$dr.css('width', (dragInfo.startX - ev.pageX + dragInfo.startWidthRight ) + 'px')
 			$dc.css('right', $dr.width() + 'px')
 		} else {
 			if (ev.pageX > dragInfo.startX)
@@ -70,7 +80,6 @@ var SwipoDeck = function(element, options) {
 			// else still no dir
 		}
 	}
-
 
 	$dc.on('mousedown.swipo.swipodeck', _onPointerDown)
 	$dc.on('mouseup.swipo.swipodeck', _onPointerUp)
