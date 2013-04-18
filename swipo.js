@@ -74,9 +74,9 @@ var SwipoDeck = function(element, options) {
 			$dc.css('right', $dr.width() + 'px')
 		} else /* no dragInfo.dir */ {
 			if (ev.pageX > dragInfo.startX)
-				dragInfo.dir = (/*$el.hasClass('left-in')*/true ) ? 'left' : 'right'
+				dragInfo.dir = 'left'
 			else if (ev.pageX < dragInfo.startX)
-				dragInfo.dir = (/*! $el.hasClass('right-in')*/true ) ? 'right' : 'left'
+				dragInfo.dir = 'right'
 			// else still no dir
 		}
 	}
