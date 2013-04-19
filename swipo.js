@@ -104,7 +104,6 @@ var SwipoDeck = function(element, options) {
 
 	function _onPointerMove(ev) {
 		convertTouchEvent(ev)
-		console.log(ev)
 
 		if ( dragInfo.target === 'left' ) {
 			$dl.css('width', (ev.pageX - dragInfo.startX + dragInfo.startWidthLeft ) + 'px')
@@ -117,7 +116,7 @@ var SwipoDeck = function(element, options) {
 			if (ev.pageX > dragInfo.startX) {
 				if (
 						// Right deck panel is in & and dragging has been started on the right half of center panel
-						   ( $el.hasClass('right-in') && dragInfo.startX > ($dc.width() / 2) )
+						   ( $el.hasClass('right-in') && dragInfo.startX > ( $dc.width() / 2 + $dc.position().left ) )
 						// Or, both panels are in
 						|| ( $el.hasClass('right-in') && $el.hasClass('left-in') )
 				   )
@@ -130,7 +129,7 @@ var SwipoDeck = function(element, options) {
 			} else if (ev.pageX < dragInfo.startX) {
 				// Same logic as right panel just vice versa for the left one
 				if (
-						   ( $el.hasClass('left-in') && dragInfo.startX < ($dc.width() / 2) )
+						   ( $el.hasClass('left-in') && dragInfo.startX < ( $dc.width() / 2 + $dc.position().left ) )
 						|| ( $el.hasClass('left-in') && $el.hasClass('right-in') )
 				   )
 					dragInfo.target = 'left'

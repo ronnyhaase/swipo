@@ -104,7 +104,13 @@
 ** Phone
 */
 @media (max-width: 767px) {
+	.swipo-paneldeck > .deck-left { max-width: 80% }
+	.swipo-paneldeck.left-in > .deck-left { width: 80%; }
+	.swipo-paneldeck.left-in > .deck-center { left: 80%; }
 
+	.swipo-paneldeck > .deck-right { max-width: 80%; }
+	.swipo-paneldeck.right-in > .deck-right { width: 80%; }
+	.swipo-paneldeck.right-in > .deck-center { right: 80%; }
 }
 
 /*
@@ -112,6 +118,5 @@
 */
 
 @media (min-width: 768px) and (max-width: 979px) {
-
 }
 
