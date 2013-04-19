@@ -1,4 +1,4 @@
-!function ($, Hammer) {
+!function ($/*, Hammer*/) {
 
 if ( !($) || !('on' in $()) ) {
 	console.log('ERROR: Swipo requires jQuery >= v1.7')
@@ -75,17 +75,24 @@ var SwipoDeck = function(element, options) {
 		} else {
 			// Pointer has been moved right
 			if (ev.pageX > dragInfo.startX) {
-				// If right deck panel is in & and dragging has been started on the right half of center panel ...
-				if ( $el.hasClass('right-in') && dragInfo.startX > ($dc.width() / 2) )
+				if (
+						// Right deck panel is in & and dragging has been started on the right half of center panel
+						   ( $el.hasClass('right-in') && dragInfo.startX > ($dc.width() / 2) )
+						// Or, both panels are in
+						|| ( $el.hasClass('right-in') && $el.hasClass('left-in') )
+				   )
 					// Move right panel out
 					dragInfo.target = 'right'
-				// If the right panel is not in ...
 				else
 					// Move left panel in
 					dragInfo.target = 'left'
+			// Pointer has been moved left
 			} else if (ev.pageX < dragInfo.startX) {
-				// Same logic as right panel just vice versa for the left
-				if ( $el.hasClass('left-in') && dragInfo.startX < ($dc.width() / 2) )
+				// Same logic as right panel just vice versa for the left one
+				if (
+						   ( $el.hasClass('left-in') && dragInfo.startX < ($dc.width() / 2) )
+						|| ( $el.hasClass('left-in') && $el.hasClass('right-in') )
+				   )
 					dragInfo.target = 'left'
 				else
 					dragInfo.target = 'right'
@@ -139,5 +146,5 @@ $.fn.swipodeck.defaults = {
 // TODO: Non correct implementation of Data API!
 $('[data-toggle="swipo-deck"]').swipodeck()
 
-}(window.jQuery, window.Hammer);
+}(window.jQuery/*, window.Hammer*/);
 
