@@ -104,7 +104,6 @@ var SwipoDeck = function(element, options) {
 
 	function _onPointerMove(ev) {
 		convertTouchEvent(ev)
-		console.log(ev)
 
 		if ( dragInfo.target === 'left' ) {
 			$dl.css('width', (ev.pageX - dragInfo.startX + dragInfo.startWidthLeft ) + 'px')
