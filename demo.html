@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Swipo</title>
+	<meta name="description" content="SwipoJS - Frontend Framework for creating gesture-based, responsive Websites &amp; Web-Apps.">
+	<meta name="keywords" content="swipojs, swipo, mobile, frontend, framework, mobile, swipe, touch, responsive">
+	<meta name="author" content="Ronny Haase <ronhaase@gmail.com>">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="swipo.css">
+	<link rel="stylesheet" href="swipo-theme-default.css">
+
+	<style>
+.clearfix {
+	*zoom: 1;
+}
+
+.clearfix:before
+, .clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
+
+#main {
+	box-shadow: 0 0 10px #000;
+}
+
+#menu, #social {
+	background-color: #445;
+}
+	</style>
+</head>
+
+<body>
+
+<div id="swipo-wrapper" class="swipo">
+	<div id="maindeck" class="swipo-paneldeck" data-toggle="swipo-deck">
+		<div id="menu" class="swipo-panel deck-left" data-toggle="swipo-deck-left">
+		</div>
+	
+		<div id="social" class="swipo-panel deck-right" data-toggle="swipo-deck-right">
+		</div>
+
+		<div id="main" class="swipo-panel has-navbar has-tabbar deck-center" data-toggle="swipo-deck-center">
+			<div class="swipo-pull">Drag to sync</div>
+
+			<div class="swipo-navbar">
+				<button class="pull-left clearfix" onclick="$('#maindeck').toggleClass('left-in');">Menu</button>
+				Swipo
+				<button class="pull-right clearfix" onclick="$('#maindeck').toggleClass('right-in');">Social</button>
+			</div>
+
+			<h1>Swipo</h1>
+			<h2>Frontend Framework for creating hot shit.</h2>
+
+			<div class="swipo-tabbar"></div>
+		</div>
+	</div>
+</div>
+
+<script src="js/vendor/jquery-1.9.1.min.js"></script>
+<script src="js/vendor/hammer-1.0.3.min.js"></script>
+<script src="swipo.js"></script>
+
+<body>
+
+</html>
+

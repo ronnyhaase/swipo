@@ -1,0 +1,117 @@
+[class*="swipo"] {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	position: absolute;
+	top: 0;
+	bottom: auto;
+	left: 0;
+	right: auto;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+/* Helper class - Turns off transitions for a Swipo element and all it's child Swipo elements */
+[class*="swipo"].no-transitions,
+[class*="swipo"].no-transitions * {
+	-webkit-transition: none !important;
+}
+
+.swipo {
+	-webkit-perspective: 800px;
+}
+
+.swipo-panel {}
+
+/*
+** NavBar & TabBar
+*/
+.swipo-panel > .swipo-navbar
+, .swipo-panel > .swipo-tabbar {
+	height: 44px; /* Feel free to change this to your needs */
+}
+
+.swipo-panel> .swipo-navbar {
+	text-align: center;
+}
+.swipo-panel.has-navbar { padding-top: 44px; /* Has to be NavBar height! */ }
+
+.swipo-panel > .swipo-tabbar {
+	top: auto;
+	bottom: 0;
+}
+.swipo-panel.has-tabbar { padding-bottom: 44px; /* Has to be TabBar height! */ }
+
+/*
+** Pull
+*/
+.swipo-panel > .swipo-pull { display: none; }
+
+/*
+** PanelDeck
+*/
+
+.swipo-paneldeck {}
+
+.swipo-paneldeck > .deck-left
+, .swipo-paneldeck > .deck-center
+, .swipo-paneldeck > .deck-right {
+	-webkit-transition: left ease 300ms, right ease 300ms, width ease 300ms;
+}
+
+.swipo-paneldeck > .deck-center {
+	bottom: 0;
+	right: 0;
+	width: auto;
+	height: auto;
+}
+
+.swipo-paneldeck > .deck-left {
+	width: 0;
+	max-width: 20%; /* (Only px / % !) Feel free to change this to your needs */
+}
+.swipo-paneldeck.left-in > .deck-left { width: 20%; }
+.swipo-paneldeck.left-in > .deck-center { left: 20%; }
+
+.swipo-paneldeck > .deck-right {
+	left: auto;
+	right: 0;
+	width: 0;
+	max-width: 20%; /* (Only px / % !) Feel free to change this to your needs */
+}
+.swipo-paneldeck.right-in > .deck-right { width: 20%; }
+.swipo-paneldeck.right-in > .deck-center { right: 20%; }
+
+/************
+**
+** RESPONSIVE
+**
+*************/
+
+/* IE10 Metro responsive
+** Required for Windows 8 Metro split-screen snapping with IE10
+** Source: http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
+*/
+@-ms-viewport{
+	width: device-width;
+}
+
+/*
+** Phone
+*/
+@media (max-width: 767px) {
+
+}
+
+/*
+** Tablet & small desktop
+*/
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
