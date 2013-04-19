@@ -23,7 +23,7 @@ var SwipoDeck = function(element, options) {
 		, dragInfo = {
 			startX: null // pointer x-pos
 			, startY: null // pointer y-pos
-			, dir: null // drag direction
+			, target: null // drag direction
 		}
 
 	this.options = $.extend({}, $.fn.swipodeck.defaults, options)
@@ -49,13 +49,13 @@ var SwipoDeck = function(element, options) {
 		/*var dltw = calcToggleWidth()
 			, drtw = calcToggleWidth()
 
-		if ( dragInfo.dir === 'left' )
-		else if ( dragInfo.dir === 'right' )*/
+		if ( dragInfo.target === 'left' )
+		else if ( dragInfo.target === 'right' )*/
 
 		// Remove pointer move listener
 		$el.off('mousemove.swipodeck')
 		// Reset dragInfo
-		dragInfo.dir = null
+		dragInfo.target = null
 		// Turn on transitions
 		$el.removeClass('no-transitions')
 
@@ -66,10 +66,10 @@ var SwipoDeck = function(element, options) {
 	}
 
 	function _onPointerMove(ev) {
-		if ( dragInfo.dir === 'left' ) {
+		if ( dragInfo.target === 'left' ) {
 			$dl.css('width', (ev.pageX - dragInfo.startX + dragInfo.startWidthLeft ) + 'px')
 			$dc.css('left', $dl.width()  + 'px')
-		} else if ( dragInfo.dir === 'right' ) {
+		} else if ( dragInfo.target === 'right' ) {
 			$dr.css('width', (dragInfo.startX - ev.pageX + dragInfo.startWidthRight ) + 'px')
 			$dc.css('right', $dr.width() + 'px')
 		} else {
@@ -78,17 +78,17 @@ var SwipoDeck = function(element, options) {
 				// If right deck panel is in & and dragging has been started on the right half of center panel ...
 				if ( $el.hasClass('right-in') && dragInfo.startX > ($dc.width() / 2) )
 					// Move right panel out
-					dragInfo.dir = 'right'
+					dragInfo.target = 'right'
 				// If the right panel is not in ...
 				else
 					// Move left panel in
-					dragInfo.dir = 'left'
+					dragInfo.target = 'left'
 			} else if (ev.pageX < dragInfo.startX) {
 				// Same logic as right panel just vice versa for the left
 				if ( $el.hasClass('left-in') && dragInfo.startX < ($dc.width() / 2) )
-					dragInfo.dir = 'left'
+					dragInfo.target = 'left'
 				else
-					dragInfo.dir = 'right'
+					dragInfo.target = 'right'
 			}
 			// else still no dir
 		}
