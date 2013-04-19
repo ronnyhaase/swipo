@@ -33,7 +33,7 @@ var SwipoDeck = function(element, options) {
 	this.$deckCenter = $dc
 
 	function _onPointerDown(ev) {
-		// Add event listener for pointer move (so we don't listen to this all the time)
+		// Add event listener for pointer move (so we don't listen and react to this all the time)
 		$el.on('mousemove.swipo.swipodeck', _onPointerMove)
 
 		dragInfo.startX = ev.pageX
@@ -46,11 +46,37 @@ var SwipoDeck = function(element, options) {
 	}
 
 	function _onPointerUp(ev) {
-		/*var dltw = calcToggleWidth()
-			, drtw = calcToggleWidth()
+		var calcToggleWidth = function($tar) {
+				var maxWidth = $tar.css('max-width')
+					, toggleWidth = 0
 
-		if ( dragInfo.target === 'left' )
-		else if ( dragInfo.target === 'right' )*/
+				if ( maxWidth[maxWidth.length-2] === 'p' && maxWidth[maxWidth.length-1] === 'x' ) {
+					maxWidth = maxWidth.slice(0,-2)
+				} else if ( maxWidth[maxWidth.length-1] === '%' ) {
+					maxWidth = maxWidth.slice(0,-1)
+					maxWidth = ($el.width() * (maxWidth * 0.01))
+				} else
+					throw 'The CSS max-width of ' + $tar.toArray() + ' is invalid, only "px" & "%" are possible'
+
+				return maxWidth / 2
+			}
+			, toggleWidth
+
+		if ( dragInfo.target === 'left' ) {
+			toggleWidth = calcToggleWidth($dl)
+
+			if ( $el.hasClass('left-in') && $dl.width() <= toggleWidth )
+				$el.removeClass('left-in')
+			else if ( !($el.hasClass()) && $dl.width() >= toggleWidth  )
+				$el.addClass('left-in')
+		} else if ( dragInfo.target === 'right' ) {
+			toggleWidth = calcToggleWidth($dr)
+
+			if ( $el.hasClass('right-in') && $dr.width() <= toggleWidth )
+				$el.removeClass('right-in')
+			else if ( !($el.hasClass()) && $dr.width() >= toggleWidth  )
+				$el.addClass('right-in')
+		}
 
 		// Remove pointer move listener
 		$el.off('mousemove.swipodeck')
