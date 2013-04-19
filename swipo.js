@@ -72,11 +72,24 @@ var SwipoDeck = function(element, options) {
 		} else if ( dragInfo.dir === 'right' ) {
 			$dr.css('width', (dragInfo.startX - ev.pageX + dragInfo.startWidthRight ) + 'px')
 			$dc.css('right', $dr.width() + 'px')
-		} else /* no dragInfo.dir */ {
-			if (ev.pageX > dragInfo.startX)
-				dragInfo.dir = 'left'
-			else if (ev.pageX < dragInfo.startX)
-				dragInfo.dir = 'right'
+		} else {
+			// Pointer has been moved right
+			if (ev.pageX > dragInfo.startX) {
+				// If right deck panel is in & and dragging has been started on the right half of center panel ...
+				if ( $el.hasClass('right-in') && dragInfo.startX > ($dc.width() / 2) )
+					// Move right panel out
+					dragInfo.dir = 'right'
+				// If the right panel is not in ...
+				else
+					// Move left panel in
+					dragInfo.dir = 'left'
+			} else if (ev.pageX < dragInfo.startX) {
+				// Same logic as right panel just vice versa for the left
+				if ( $el.hasClass('left-in') && dragInfo.startX < ($dc.width() / 2) )
+					dragInfo.dir = 'left'
+				else
+					dragInfo.dir = 'right'
+			}
 			// else still no dir
 		}
 	}
