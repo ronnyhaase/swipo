@@ -32,9 +32,18 @@ var SwipoDeck = function(element, options) {
 	this.$deckRight = $dr
 	this.$deckCenter = $dc
 
+	function convertTouchEvent(ev) {
+		if ('touches' in ev.originalEvent && ev.originalEvent.touches.length > 0) {
+			ev.pageX = ev.originalEvent.touches[0].pageX
+			ev.pageY = ev.originalEvent.touches[0].pageY
+		}
+	}
+
 	function _onPointerDown(ev) {
+		convertTouchEvent(ev)
+
 		// Add event listener for pointer move (so we don't listen and react to this all the time)
-		$el.on('mousemove.swipo.swipodeck', _onPointerMove)
+		$el.on('mousemove.swipo.swipodeck, touchmove.swipo.swipodeck', _onPointerMove)
 
 		dragInfo.startX = ev.pageX
 		dragInfo.startY = ev.pageY
@@ -46,6 +55,8 @@ var SwipoDeck = function(element, options) {
 	}
 
 	function _onPointerUp(ev) {
+		convertTouchEvent(ev)
+
 		var calcToggleWidth = function($tar) {
 				var maxWidth = $tar.css('max-width')
 					, toggleWidth = 0
@@ -79,7 +90,7 @@ var SwipoDeck = function(element, options) {
 		}
 
 		// Remove pointer move listener
-		$el.off('mousemove.swipodeck')
+		$el.off('mousemove.swipodeck, touchmove.swipodeck')
 		// Reset dragInfo
 		dragInfo.target = null
 		// Turn on transitions
@@ -92,6 +103,9 @@ var SwipoDeck = function(element, options) {
 	}
 
 	function _onPointerMove(ev) {
+		convertTouchEvent(ev)
+		console.log(ev)
+
 		if ( dragInfo.target === 'left' ) {
 			$dl.css('width', (ev.pageX - dragInfo.startX + dragInfo.startWidthLeft ) + 'px')
 			$dc.css('left', $dl.width()  + 'px')
@@ -127,8 +141,8 @@ var SwipoDeck = function(element, options) {
 		}
 	}
 
-	$dc.on('mousedown.swipo.swipodeck', _onPointerDown)
-	$dc.on('mouseup.swipo.swipodeck', _onPointerUp)
+	$dc.on('mousedown.swipo.swipodeck, touchstart.swipo.swipodeck', _onPointerDown)
+	$dc.on('mouseup.swipo.swipodeck, touchend.swipo.swipodeck', _onPointerUp)
 }
 
 SwipoDeck.prototype.showDeck = function(){}
