@@ -39,7 +39,7 @@ var SwipoDeck = function(element, options) {
 			// It's a touch event
 			'touches' in ev.originalEvent && ev.originalEvent.touches.length > 0 
 			// And only one finger
-//			&& ev.originalEvent.touches.length < 2
+			&& ev.originalEvent.touches.length < 2
 		) {
 			ev.pageX = ev.originalEvent.touches[0].pageX
 			ev.pageY = ev.originalEvent.touches[0].pageY
@@ -94,14 +94,14 @@ var SwipoDeck = function(element, options) {
 
 			if ( $el.hasClass('left-in') && $dl.width() <= toggleWidth )
 				$el.removeClass('left-in')
-			else if ( !($el.hasClass()) && $dl.width() >= toggleWidth  )
+			else if ( !($el.hasClass('left-in')) && $dl.width() >= toggleWidth  )
 				$el.addClass('left-in')
 		} else if ( dragInfo.target === 'right' ) {
 			toggleWidth = calcToggleWidth($dr)
 
 			if ( $el.hasClass('right-in') && $dr.width() <= toggleWidth )
 				$el.removeClass('right-in')
-			else if ( !($el.hasClass()) && $dr.width() >= toggleWidth  )
+			else if ( !($el.hasClass('right-in')) && $dr.width() >= toggleWidth  )
 				$el.addClass('right-in')
 		}
 
