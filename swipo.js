@@ -20,6 +20,8 @@ var SwipoDeck = function(element, options) {
 		, $dr = $el.find('> [data-toggle="swipo-deck-right"]')
 		, $dc = $el.find('> [data-toggle="swipo-deck-center"]')
 
+		, $window = $(window)
+
 		, dragInfo = {
 			startX: null // pointer x-pos
 			, startY: null // pointer y-pos
@@ -33,10 +35,24 @@ var SwipoDeck = function(element, options) {
 	this.$deckCenter = $dc
 
 	function convertTouchEvent(ev) {
-		if ('touches' in ev.originalEvent && ev.originalEvent.touches.length > 0) {
+		if (
+			// It's a touch event
+			'touches' in ev.originalEvent && ev.originalEvent.touches.length > 0 
+			// And Only one finger
+			&& ev.originalEvent.touches.length < 2
+		) {
 			ev.pageX = ev.originalEvent.touches[0].pageX
 			ev.pageY = ev.originalEvent.touches[0].pageY
 		}
+	}
+
+	function onMobile() {
+		return ( $window.outerWidth() < 768 )
+	}
+
+	function onTablet() {
+		var ww = $window.outerWidth()
+		return ( ww >= 768 && ww < 980 )
 	}
 
 	function _onPointerDown(ev) {
