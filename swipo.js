@@ -38,8 +38,8 @@ var SwipoDeck = function(element, options) {
 		if (
 			// It's a touch event
 			'touches' in ev.originalEvent && ev.originalEvent.touches.length > 0 
-			// And Only one finger
-			&& ev.originalEvent.touches.length < 2
+			// And only one finger
+//			&& ev.originalEvent.touches.length < 2
 		) {
 			ev.pageX = ev.originalEvent.touches[0].pageX
 			ev.pageY = ev.originalEvent.touches[0].pageY
@@ -58,7 +58,7 @@ var SwipoDeck = function(element, options) {
 	function _onPointerDown(ev) {
 		convertTouchEvent(ev)
 
-		// Add event listener for pointer move (so we don't listen and react to this all the time)
+		// Add event listener for pointer move (so we don't listen and react to it all the time)
 		$el.on('mousemove.swipo.swipodeck, touchmove.swipo.swipodeck', _onPointerMove)
 
 		dragInfo.startX = ev.pageX
@@ -67,7 +67,7 @@ var SwipoDeck = function(element, options) {
 		dragInfo.startWidthRight = $dr.width()
 
 		// Turn off transitions
-		$el.addClass('no-transitions')
+		$el.addClass('no-transitions is-dragging')
 	}
 
 	function _onPointerUp(ev) {
@@ -110,9 +110,9 @@ var SwipoDeck = function(element, options) {
 		// Reset dragInfo
 		dragInfo.target = null
 		// Turn on transitions
-		$el.removeClass('no-transitions')
+		$el.removeClass('no-transitions is-dragging is-dragging-left is-dragging-right')
 
-		// Remove CSS changes
+		// Remove inline style changes
 		$dc.css({'left':'','right':''})
 		$dl.css({'width':''})
 		$dr.css({'width':''})
@@ -135,22 +135,28 @@ var SwipoDeck = function(element, options) {
 						   ( $el.hasClass('right-in') && dragInfo.startX > ( $dc.width() / 2 + $dc.position().left ) )
 						// Or, both panels are in
 						|| ( $el.hasClass('right-in') && $el.hasClass('left-in') )
-				   )
+				   ) {
 					// Move right panel out
 					dragInfo.target = 'right'
-				else
+					$el.addClass('is-dragging-right')
+				} else {
 					// Move left panel in
 					dragInfo.target = 'left'
+					$el.addClass('is-dragging-left')
+				}
 			// Pointer has been moved left
 			} else if (ev.pageX < dragInfo.startX) {
 				// Same logic as right panel just vice versa for the left one
 				if (
 						   ( $el.hasClass('left-in') && dragInfo.startX < ( $dc.width() / 2 + $dc.position().left ) )
 						|| ( $el.hasClass('left-in') && $el.hasClass('right-in') )
-				   )
+				   ) {
 					dragInfo.target = 'left'
-				else
+					$el.addClass('is-dragging-left')
+				} else {
 					dragInfo.target = 'right'
+					$el.addClass('is-dragging-right')
+				}
 			}
 			// else still no dir
 		}

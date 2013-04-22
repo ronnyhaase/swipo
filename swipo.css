@@ -22,6 +22,8 @@
 }
 
 .swipo {
+	overflow: hidden;
+
 	-webkit-perspective: 800px;
 }
 
@@ -104,13 +106,17 @@
 ** Phone
 */
 @media (max-width: 767px) {
-	.swipo-paneldeck > .deck-left { max-width: 80% }
+	/* Make the center panel appear to be dragged and not sized */
+	.swipo-paneldeck > .deck-center { width: 100%; }
+	.swipo-paneldeck.is-dragging > .deck-center { left: auto; }
+
+	.swipo-paneldeck > .deck-left { max-width: 80%; }
 	.swipo-paneldeck.left-in > .deck-left { width: 80%; }
 	.swipo-paneldeck.left-in > .deck-center { left: 80%; right: -80%; }
 
 	.swipo-paneldeck > .deck-right { max-width: 80%; }
 	.swipo-paneldeck.right-in > .deck-right { width: 80%; }
-	.swipo-paneldeck.right-in > .deck-center { left: -80%; right: 80%; }
+	.swipo-paneldeck.right-in > .deck-center { left: auto; right: 80%; }
 }
 
 /*
