@@ -1,0 +1,22 @@
+@import "settings.less";
+@import "mixins.less";
+@import "base.less";
+
+.swipo-deck {
+	position: absolute;
+}
+
+.swipo-deck > .swipo-panel.swipo-deck-left {
+	max-width: @deck-panel-width-desktop;
+
+	// Phone
+	@media (min-width: @min-width-phone) and (max-width: @max-width-phone) {
+		max-width: @deck-panel-width-mobile;
+	}
+}
+
+.swipo-deck > .swipo-panel.swipo-deck-right {
+}
+
+.swipo-deck > .swipo-panel.swipo-deck-center {
+}
